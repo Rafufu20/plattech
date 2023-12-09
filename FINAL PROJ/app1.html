@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Game</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background-color: #1F0160;
+            color: #fff;
+        }
+
+        #word-display {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #guess-input {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #submit-button, #play-again-button {
+            font-size: 16px;
+        }
+
+        #attempts {
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #button-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+        #submit-button{
+            margin-left: 3%;
+            background-color: white;
+            border-radius: 10px;
+            color: black;
+            
+        }
+        #submit-button:hover{
+            background-color: green;
+            color: white;
+            border-radius: 10px;
+            transform: scale(1.3);
+            transition: 1s;
+            
+        }
+
+        #preloader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 2s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <h1>GUESS THE WORD!</h1>
+
+    <div id="word-display"></div>
+
+    <label for="guess-input">ENTER YOUR GUESS:</label>
+    <input type="text" id="guess-input" maxlength="5">
+    <button id="submit-button" onclick="submitGuess()">Submit Guess</button>
+
+    <div id="attempts">Attempts left: <span id="attempts-left">6</span></div>
+
+    <div id="result"></div>
+    
+    <div id="button-container">
+        <button id="play-again-button" onclick="playAgain()">Play Again</button>
+    </div>
+
+    <script>
+        document.getElementById("preloader").style.display = "flex";
+
+// Set a timeout to hide the preloader and start the game
+setTimeout(function() {
+    document.getElementById("preloader").style.opacity = "0"; // Fade out the preloader
+    setTimeout(function() {
+        document.getElementById("preloader").style.display = "none"; // Hide the preloader
+    }, 2000); // Wait for the fade-out transition to complete (2 seconds)
+}, 3000); // Show the preloader for 3 seconds
+
+        // Array of words to choose from
+        const words = ["apple", "banana", "cherry", "grape", "orange", "kiwi", "melon", "pear", "plum", "lemon"];
+
+        // Choose a random word from the array
+        let secretWord = words[Math.floor(Math.random() * words.length)];
+
+        // Display underscores for each letter in the secret word
+        let displayWord = "_".repeat(secretWord.length);
+        document.getElementById("word-display").innerText = displayWord;
+
+        // Number of attempts allowed
+        let attemptsLeft = 6;
+
+        function submitGuess() {
+            // Get the user's guess from the input field
+            let guess = document.getElementById("guess-input").value.toLowerCase();
+
+            // Validate the guess
+            if (guess.length !== 1 || !/^[a-z]$/.test(guess)) {
+                alert("Please enter a single letter.");
+                return;
+            }
+
+            // Check if the guessed letter is in the secret word
+            if (secretWord.includes(guess)) {
+                // Update the display word with the correctly guessed letter
+                displayWord = displayWord.split('').map((letter, index) => (secretWord[index] === guess ? guess : letter)).join('');
+                document.getElementById("word-display").innerText = displayWord;
+
+                // Check if the entire word has been guessed
+                if (displayWord === secretWord) {
+                    document.getElementById("result").innerText = "Congratulations! You guessed the word!";
+                    document.getElementById("result").style.color = "green";
+                    disableInput();
+                    document.getElementById("play-again-button").style.display = "block";
+                }
+            } else {
+                // Reduce the number of attempts left
+                attemptsLeft--;
+                document.getElementById("attempts-left").innerText = attemptsLeft;
+
+                // Check if the player has run out of attempts
+                if (attemptsLeft === 0) {
+                    document.getElementById("result").innerText = "Sorry, you ran out of attempts. The correct word was: " + secretWord;
+                    document.getElementById("result").style.color = "red";
+                    disableInput();
+                    document.getElementById("play-again-button").style.display = "block";
+                }
+            }
+
+            // Clear the input field
+            document.getElementById("guess-input").value = "";
+        }
+
+        function disableInput() {
+            // Disable the input field and submit button
+            document.getElementById("guess-input").disabled = true;
+            document.getElementById("submit-button").disabled = true;
+        }
+
+        function playAgain() {
+            // Reset the game for a new round
+            secretWord = words[Math.floor(Math.random() * words.length)];
+            displayWord = "_".repeat(secretWord.length);
+            document.getElementById("word-display").innerText = displayWord;
+            attemptsLeft = 6;
+            document.getElementById("attempts-left").innerText = attemptsLeft;
+            document.getElementById("result").innerText = "";
+            document.getElementById("play-again-button").style.display = "none";
+
+            // Enable input and buttons
+            document.getElementById("guess-input").disabled = false;
+            document.getElementById("submit-button").disabled = false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: purple;
+    }
+    .name{
+      display: flex;
+      flex-direction: column;
+      color: white;
+      align-items: center;
+      justify-content: center;
+    }
+    .name h1{
+      font-size: 2em;
+      color: gold;
+    }
+
+    #memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-image: url(memorygamecard.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+
+    .card.flip {
+      transform: rotateY(180deg);
+    }
+
+    .card .card-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .card .card-inner .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card .card-inner .card-face.front {
+      transform: rotateY(180deg);
+    }
+   
+         #preloader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 2s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.4s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+  </style>
+  <div id="preloader">
+    <div class="spinner"></div>
+</div>
+
+  <title>Memory Game</title>
+</head>
+<body>
+<div class="name">
+  <h1>MEMORY GAME</h1>
+  <p>Let's see if you have a strong memory.</p>
+<div id="memory-game"></div>
+</div>
+<script>
+    document.getElementById("preloader").style.display = "flex";
+
+// Set a timeout to hide the preloader and start the game
+setTimeout(function() {
+    document.getElementById("preloader").style.opacity = "0"; // Fade out the preloader
+    setTimeout(function() {
+        document.getElementById("preloader").style.display = "none"; // Hide the preloader
+    }, 2000); // Wait for the fade-out transition to complete (2 seconds)
+}, 3000); // Show the preloader for 3 seconds
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const symbols = ['🌟', '🎈', '🍎', '🚀', '🌈', '🐱', '🍕', '🎉'];
+
+    // Duplicate symbols to create pairs
+    const cards = [...symbols, ...symbols];
+
+    // Shuffle the cards using Fisher-Yates algorithm
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+
+    const memoryGame = document.getElementById('memory-game');
+
+    cards.forEach((symbol, index) => {
+      const cardElement = document.createElement('div');
+      cardElement.classList.add('card');
+      cardElement.dataset.index = index;
+
+      const cardInner = document.createElement('div');
+      cardInner.classList.add('card-inner');
+
+      const frontFace = document.createElement('div');
+      frontFace.classList.add('card-face', 'front');
+      frontFace.textContent = symbol;
+
+      const backFace = document.createElement('div');
+      backFace.classList.add('card-face');
+      backFace.textContent = ' ';
+
+      cardInner.appendChild(frontFace);
+      cardInner.appendChild(backFace);
+
+      cardElement.appendChild(cardInner);
+
+      cardElement.addEventListener('click', handleCardClick);
+      memoryGame.appendChild(cardElement);
+    });
+
+    let selectedCards = [];
+    let lockBoard = false;
+
+    function handleCardClick() {
+      if (lockBoard) return;
+      if (this === selectedCards[0]) return;
+
+      this.classList.add('flip');
+      selectedCards.push(this);
+
+      if (selectedCards.length === 2) {
+        lockBoard = true;
+        setTimeout(checkForMatch, 1000);
+      }
+    }
+
+    function checkForMatch() {
+      const [card1, card2] = selectedCards;
+      const isMatch = card1.textContent === card2.textContent;
+
+      isMatch ? disableCards() : unflipCards();
+
+      selectedCards = [];
+      lockBoard = false;
+    }
+
+    function disableCards() {
+      selectedCards.forEach(card => card.removeEventListener('click', handleCardClick));
+    }
+
+    function unflipCards() {
+      selectedCards.forEach(card => card.classList.remove('flip'));
+    }
+  });
+</script>
+
+</body>
+</html>

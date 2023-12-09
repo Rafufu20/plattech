@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rating</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .stars {
+      font-size: 24px;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checked {
+      color: #ffcc00;
+    }
+
+    .hovered {
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+
+<div id="star-rating" class="stars">
+  <span data-value="1" onmouseover="handleHover(1)" onclick="handleClick(1)" onmouseout="handleMouseOut()">&#9733;</span>
+  <span data-value="2" onmouseover="handleHover(2)" onclick="handleClick(2)" onmouseout="handleMouseOut()">&#9733;</span>
+  <span data-value="3" onmouseover="handleHover(3)" onclick="handleClick(3)" onmouseout="handleMouseOut()">&#9733;</span>
+  <span data-value="4" onmouseover="handleHover(4)" onclick="handleClick(4)" onmouseout="handleMouseOut()">&#9733;</span>
+  <span data-value="5" onmouseover="handleHover(5)" onclick="handleClick(5)" onmouseout="handleMouseOut()">&#9733;</span>
+</div>
+
+<script>
+  let rating = 0;
+
+  const stars = document.querySelectorAll('.stars span');
+
+  function handleClick(value) {
+    rating = value;
+
+    // Remove 'checked' class from all stars
+    stars.forEach((star) => {
+      star.classList.remove('checked');
+    });
+
+    // Add 'checked' class to stars up to the clicked one
+    for (let i = 0; i < value; i++) {
+      stars[i].classList.add('checked');
+    }
+  }
+
+  function handleHover(value) {
+    // Add 'hovered' class to stars being hovered and the stars before them
+    stars.forEach((star, index) => {
+      if (index + 1 <= value) {
+        star.classList.add('hovered');
+      } else {
+        star.classList.remove('hovered');
+      }
+    });
+  }
+
+  function handleMouseOut() {
+    // Remove 'hovered' class from all stars when the mouse leaves the rating area
+    stars.forEach((star) => {
+      star.classList.remove('hovered');
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <style>
+     body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url(bombbg.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+    }
+    body h1{
+       text-align: center;
+    }
+    #minesweeper {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      gap: 1px;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #eee;
+      perspective: 1000px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .cell.clicked {
+      background-color: #ddd;
+      transform: rotateY(180deg);
+    }
+
+    .mine {
+      color: red;
+    }
+
+    .game-over {
+      color: white;
+      background-color: red;
+      border-radius: 20px;
+      text-align: center;
+      padding: 10px;
+      display: flex;
+      position: relative;
+      top: 10px;
+      left: 85px;
+      align-items: center; 
+      justify-content: center;
+      width: 10vw; 
+      margin: 0;
+    }
+    .game-over:hover{
+      background-color:rgb(100, 4, 4);
+      color: white;
+      transition: 1s;
+      transform: scale(1.2);
+    }
+        #preloader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 2s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+  </style>
+</head>
+<body>
+    <h1>MINESWEEPER GAME!</h1>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+
+  <div id="minesweeper"></div>
+  <script>
+     document.getElementById("preloader").style.display = "flex";
+
+// Set a timeout to hide the preloader and start the game
+setTimeout(function() {
+    document.getElementById("preloader").style.opacity = "0"; // Fade out the preloader
+    setTimeout(function() {
+        document.getElementById("preloader").style.display = "none"; // Hide the preloader
+    }, 2000); // Wait for the fade-out transition to complete (2 seconds)
+}, 3000); // Show the preloader for 3 seconds
+
+    document.addEventListener('DOMContentLoaded', startGame);
+
+    const rows = 10;
+    const cols = 10;
+    const mines = 15;
+    let board = [];
+    let gameOver = false;
+
+    function startGame() {
+      createBoard();
+      placeMines();
+      updateNumbers();
+      renderBoard();
+    }
+
+    function createBoard() {
+      for (let i = 0; i < rows; i++) {
+        board[i] = [];
+        for (let j = 0; j < cols; j++) {
+          board[i][j] = { isMine: false, isRevealed: false, count: 0 };
+        }
+      }
+    }
+
+    function placeMines() {
+      let minesPlaced = 0;
+      while (minesPlaced < mines) {
+        const randomRow = Math.floor(Math.random() * rows);
+        const randomCol = Math.floor(Math.random() * cols);
+        if (!board[randomRow][randomCol].isMine) {
+          board[randomRow][randomCol].isMine = true;
+          minesPlaced++;
+        }
+      }
+    }
+
+    function updateNumbers() {
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (!board[i][j].isMine) {
+            board[i][j].count = countAdjacentMines(i, j);
+          }
+        }
+      }
+    }
+
+    function countAdjacentMines(row, col) {
+      let count = 0;
+      for (let i = row - 1; i <= row + 1; i++) {
+        for (let j = col - 1; j <= col + 1; j++) {
+          if (i >= 0 && i < rows && j >= 0 && j < cols && board[i][j].isMine) {
+            count++;
+          }
+        }
+      }
+      return count;
+    }
+
+    function renderBoard() {
+      const minesweeper = document.getElementById('minesweeper');
+      minesweeper.innerHTML = '';
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const cell = document.createElement('div');
+          cell.classList.add('cell');
+          if (board[i][j].isRevealed) {
+            cell.classList.add('clicked');
+            if (board[i][j].isMine) {
+              cell.classList.add('mine');
+              cell.textContent = '💣';
+            } else if (board[i][j].count > 0) {
+              cell.textContent = board[i][j].count;
+            }
+          } else {
+            cell.addEventListener('click', () => handleClick(i, j));
+          }
+          minesweeper.appendChild(cell);
+        }
+      }
+    }
+
+    function handleClick(row, col) {
+      if (gameOver || board[row][col].isRevealed) {
+        return;
+      }
+
+      board[row][col].isRevealed = true;
+
+      if (board[row][col].isMine) {
+        gameOver = true;
+        revealMines();
+        renderBoard();
+        showGameOverMessage();
+      } else {
+        if (board[row][col].count === 0) {
+          revealEmptyCells(row, col);
+        }
+        renderBoard();
+        checkForWin();
+      }
+    }
+
+    function revealEmptyCells(row, col) {
+      for (let i = row - 1; i <= row + 1; i++) {
+        for (let j = col - 1; j <= col + 1; j++) {
+          if (i >= 0 && i < rows && j >= 0 && j < cols && !board[i][j].isRevealed) {
+            board[i][j].isRevealed = true;
+            if (board[i][j].count === 0) {
+              revealEmptyCells(i, j);
+            }
+          }
+        }
+      }
+    }
+
+    function revealMines() {
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (board[i][j].isMine) {
+            board[i][j].isRevealed = true;
+          }
+        }
+      }
+    }
+
+    function checkForWin() {
+      let nonMineCount = 0;
+      let revealedCount = 0;
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (!board[i][j].isMine) {
+            nonMineCount++;
+          }
+          if (board[i][j].isRevealed) {
+            revealedCount++;
+          }
+        }
+      }
+
+      if (nonMineCount === revealedCount) {
+        gameOver = true;
+        showWinMessage();
+      }
+    }
+
+    function showGameOverMessage() {
+      const minesweeper = document.getElementById('minesweeper');
+      const message = document.createElement('div');
+      message.classList.add('game-over');
+      message.textContent = 'Game Over! Click to restart.';
+      minesweeper.appendChild(message);
+
+      message.addEventListener('click', () => {
+        resetGame();
+        startGame();
+      });
+    }
+
+    function showWinMessage() {
+      const minesweeper = document.getElementById('minesweeper');
+      const message = document.createElement('div');
+      message.classList.add('game-over');
+      message.textContent = 'Congratulations! You Win! Click to restart.';
+      minesweeper.appendChild(message);
+
+      message.addEventListener('click', () => {
+        resetGame();
+        startGame();
+      });
+    }
+
+    function resetGame() {
+      board = [];
+      gameOver = false;
+    }
+  </script>
+</body>
+</html>

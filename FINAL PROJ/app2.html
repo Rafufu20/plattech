@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+            max-width: 320px;
+            background-color: white;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cell:hover {
+            background-color: yellowgreen;
+            opacity: 0.5;
+            border-radius: 50px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+       
+        #preloader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 2s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <h1>Tic-Tac-Toe Game</h1>
+
+    <div id="board"></div>
+
+    <div id="result"></div>
+
+    <script>
+         document.getElementById("preloader").style.display = "flex";
+
+// Set a timeout to hide the preloader and start the game
+setTimeout(function() {
+    document.getElementById("preloader").style.opacity = "0"; // Fade out the preloader
+    setTimeout(function() {
+        document.getElementById("preloader").style.display = "none"; // Hide the preloader
+    }, 2000); // Wait for the fade-out transition to complete (2 seconds)
+}, 3000); // Show the preloader for 3 seconds
+
+        const board = document.getElementById('board');
+        const result = document.getElementById('result');
+
+        let currentPlayer = '❎';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        // Create the Tic-Tac-Toe board
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.setAttribute('data-index', i);
+            cell.addEventListener('click', handleCellClick);
+            board.appendChild(cell);
+        }
+
+        function handleCellClick(event) {
+            const index = event.target.getAttribute('data-index');
+
+            if (gameBoard[index] === '' && gameActive) {
+                gameBoard[index] = currentPlayer;
+                event.target.innerText = currentPlayer;
+                checkWinner();
+                togglePlayer();
+            }
+        }
+
+        function togglePlayer() {
+            currentPlayer = currentPlayer === '❎' ? '⭕' : '❎';
+        }
+
+        function checkWinner() {
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]             // Diagonals
+            ];
+
+            for (const combination of winningCombinations) {
+                const [a, b, c] = combination;
+                if (gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                    gameActive = false;
+                    result.innerText = `${currentPlayer} wins!`;
+                    return;
+                }
+            }
+
+            if (!gameBoard.includes('')) {
+                gameActive = false;
+                result.innerText = "It's a draw!";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Saira Condensed', sans-serif;
+    box-sizing: border-box;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    font-size: 25px;
+    cursor: pointer;
+    display: none;
+}
+.menubar{
+    margin: 0;
+    padding-right: 70px;
+}
+.menubar ul li a{
+   font-weight: 60;
+}
+.ulcon:hover {
+   font-size: 150%;
+   font-weight: bold;
+   color: gold;
+   transition: 0.5s;
+}
+.ulapp:hover {
+  font-size: 150%;
+  font-weight: bold;
+  color: gold;
+  transition: 0.5s;
+}
+.ulabout:hover {
+  font-size: 150%;
+  font-weight: bold;
+  color: gold;
+  transition: 0.5s;
+}
+.ulhome:hover {
+  font-size: 150%;
+  font-weight: bold;
+  color: gold;
+  transition: 0.5s;
+}
+
+
+header {
+    background-color: #1F0160;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(31, 1, 96, 1); /* Initial background color with opacity */
+    transition: background-color 0.3s ease; /* Smooth transition for opacity change */
+    z-index: 1;
+}
+.menu-icon {
+  display: block;
+  position: absolute;
+  top: 8px;
+  right: 20px;
+  color: white;
+  z-index: 2; /* Ensure the icon is above other elements */
+}
+
+.logo h1 {
+  padding-left: 10px;
+  margin: 0;
+  opacity: 0.8; /* Initial opacity for the logo */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
+.logo h1 span{
+    color: #3498db;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+    padding-right: 20px;
+    opacity: 0.8; /* Initial opacity for nav links */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
+header.scrolled {
+  background-color: rgba(31, 1, 96, 0.3); /* Updated background color on scroll */
+}
+header.scrolled .logo h1,
+header.scrolled nav a {
+    opacity: 1; /* Fully visible logo and nav links on scroll */
+}
+.home {
+    background-color: #000000; /* Blue */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.homeicons{
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 2%;
+  margin: 3%;
+  position: relative;
+  bottom: 10%;
+}
+.pic img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media screen and (min-width: 300px) {
+  .homeicons {
+    width: 90%;
+    height: 25%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .homeicons {
+    width: 50%;
+    height: 40%;
+  }
+}
+.pic{
+  height: 100%;
+  width: 50%;
+  margin: 10px;
+}
+.pic:hover img{
+  transform: scale(1.5);
+  transition: 1.5s;
+}
+.homename{
+    font-size: 5em;
+    padding-top: 50px;
+}
+.home h1{
+    color: white;
+}
+.home h1 span{
+    color: #4B6EEC;
+}
+
+.about {
+    background: linear-gradient(to bottom,#000000, #000000, #1F0160);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info-box{
+    background-image: url(bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid black;
+    border-radius: 60px;
+    width: 90%;
+    height: 100%;
+    margin: 90px auto;
+    display: flex;
+}
+.info-text{
+    display: inline-block;
+    width: 50vw;
+    height: 80%;
+    color: white;
+    text-align: left;
+    padding: 20px;
+    line-height: 1.0;
+}
+.spanlink{
+  color: gold;
+  font-weight: bold;
+}
+@media screen and (min-width: 300px) {
+  .info-text span {
+    font-size: 1em;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .info-text span {
+    font-size: 1.5em;
+  }
+}
+.info-image{
+    background-image: url(about-image.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 50vw;
+    top: 35px;
+}
+.playnow-button{
+    top: 5%;
+    text-decoration: none;
+    font-size: 2.3vw;
+    float: right;
+    background-color: #4B6EEC;
+    width: 13vw;
+    position: relative;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+@media screen and (min-width: 300px) {
+  .playnow-button {
+    top: 45%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .playnow-button {
+    top: 5%;
+  }
+}
+.playnow-button:hover {
+    background-color: #ffcc00;
+    color: #000000;
+    font-weight: bold;
+    transition: 1s;
+}
+    @media screen and (min-width: 300px) {
+    .playnow-button {
+      transform: scale(2);
+    }
+}
+    @media screen and (min-width: 1000px) {
+    .playnow-button {
+      transform: scale(1);
+    }
+}
+    @media screen and (min-width: 300px) {
+    .info-text {
+      font-size: 1.15em; /* Adjust the value for even larger screens */
+    }
+}
+    @media screen and (min-width: 600px) {
+    .info-text {
+      font-size: 1.2em; /* Adjust the value for larger screens */
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    .info-text {
+      font-size: 1.4em; /* Adjust the value for even larger screens */
+    }
+}
+    @media screen and (min-width: 1100px) {
+    .info-text {
+      font-size: 2em; /* Adjust the value for even larger screens */
+    }
+}
+
+.applications {
+    background: linear-gradient(to top,#000000, #000000, #1F0160);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+.applications h1{
+    text-align: center;
+    justify-content: center;
+    top: 0;
+    color: white;
+}
+@media screen and (min-width: 300px) {
+    .applications h1 {
+      font-size: 80%; /* Adjust the value for even larger screens */
+    }
+}
+@media screen and (min-width: 1000px) {
+    .applications h1 {
+      font-size: 170%; /* Adjust the value for even larger screens */
+    }
+}
+@media screen and (min-width: 1200px) {
+    .applications h1 {
+      font-size: 200%; /* Adjust the value for even larger screens */
+    }
+}
+.applications span{
+    font-size: 2.5em;
+    color: gold;
+}
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+    text-align: center
+  }
+
+.card {
+    flex: 1;
+    height: 40vh;
+    max-width: calc(20% - 20px); /* 20% of the container width with 20px spacing between cards */
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    margin: 2px;
+  }
+.card-image1{
+    background-image: url(wordle.png);
+    background-size: cover;
+    background-repeat: 2;
+    width: 100%;
+    height: 100%;
+}
+.card-image2{
+    background-image: url(tictactoe.png);
+    background-size: cover;
+    background-repeat: 2;
+    width: 100%;
+    height: 100%;
+}
+.card-image3{
+    background-image: url(match.png);
+    background-size: cover;
+    background-repeat: 2;
+    width: 100%;
+    height: 100%;
+}
+.card-image4{
+    background-image: url(bmi.png);
+    background-size: cover;
+    background-repeat: 2;
+    width: 100%;
+    height: 100%;
+}
+.card-image5{
+    background-image: url(minesweeper.png);
+    background-size: cover;
+    background-repeat: 2;
+    width: 100%;
+    height: 100%;
+}
+.card-link{
+    background: linear-gradient(rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.8));
+    height: 20%;
+    justify-content: center;
+    position: relative;
+    bottom: 20%;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.card-link:hover{
+    background-color: gold;
+}
+.card-link a{
+    color: #f0f0f0;
+    background-color: #3498db;
+    border-radius: 10px;
+}
+    @media (min-width: 300px) {
+    .card-link {
+      font-size: 1em;
+    }
+  }
+  @media (min-width: 1200px) {
+    .card-link {
+      font-size: 2em;
+    }
+  }
+.card-link a{
+    text-decoration: none;
+    position: relative;
+    top: 10%;
+}
+.card-link:hover a {
+    background-color: gold;
+    color: black;
+    font-size: 120%;
+    transition: 1.5s;
+}
+
+  @media (max-width: 768px) {
+    .card {
+      max-width: calc(50% - 20px); /* 50% of the container width with 20px spacing between cards */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card {
+      max-width: 100%; /* Full width on small screens */
+    }
+  }
+.card-text{
+    color: white;
+    position: relative;
+    bottom: 25%;
+    margin: 5px;
+    text-align: center;
+    font-weight: bolder;
+}
+@media (min-width: 300px) {
+    .card-text {
+      font-size: 1.3em;
+    }
+  }
+  @media (min-width: 1200px) {
+    .card-text {
+      font-size: 2.5em;
+    }
+  }
+
+.contacts {
+    background-image: url(bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+    @media (min-width: 300px) {
+    .contacts {
+    height: 40vh;
+    }
+  }
+    @media (min-width: 1200px) {
+    .contacts {
+    height: 60vh;
+    }
+  }
+.con-text{
+    color: white;
+    margin: 20px;
+    font-size: larger;
+    margin-left: 3%;
+}
+@media (max-width: 300px) {
+    .con-text {
+      font-size: 1.5em;
+    }
+  }
+@media (min-width: 1200px) {
+    .con-text {
+      font-size: 2em;
+      position: relative;
+      bottom: 5%;
+    }
+  }
+.con-icon a img{
+    height: 1.5em;
+    width: 1.5em;
+}
+    @media (min-width: 300px) {
+    .con-icon a img {
+      font-size: 1.5em;
+    }
+  }
+     @media (min-width: 1200px) {
+    .con-icon a img {
+      font-size: 2.5em;
+    }
+  }
+.fblogo:hover{
+    transform: scale(1.5);
+    transition: 1.2s;
+}
+.iglogo:hover{
+    transform: scale(1.5);
+    transition: 1.2s;
+}
+.ghlogo:hover{
+    transform: scale(1.5);
+    transition: 1.2s;
+}
+.con-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    position: relative;
+    margin: 3%;
+    top: 35%;
+}
+    @media (min-width: 300px) {
+    .con-info {
+    top: 15%;
+    }
+  }
+    @media (min-width: 1200px) {
+    .con-info {
+    top: 25%;
+    }
+  }
+.con-link a{
+    color: white;
+    text-decoration: none;
+}
+.con-link:hover a{
+    color: gold;
+    font-weight: bold;
+    transition: 1s;
+}
+    @media (min-width: 300px) {
+    .con-link a {
+      font-size: 1.2em;
+    }
+  }
+    @media (min-width: 1200px) {
+    .con-link a {
+      font-size: 1.8em;
+    }
+  }
+.stars {
+    color: #ccc;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    bottom: 10%;
+    margin-left: 3%;
+  }
+  @media (min-width: 300px) {
+    .stars {
+      font-size: 3em;
+    }
+  }
+  @media (min-width: 1200px) {
+    .stars {
+      font-size: 4em;
+      bottom: 18%;
+    }
+  }
+
+  .checked {
+    color: #ffcc00;
+  }
+
+  .hovered {
+    color: #ffcc00;
+  }
+.rights-reserved {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 70vh;
+    width: 100%;
+    background-color: black;
+    color: #fff;
+}
+.rr-text{
+    text-align: center;
+    line-height: 0.5;
+}
+
+/* Media Query for Mobile */
+@media screen and (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1F0160;
+        opacity: 60%;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        text-align: center;
+        margin: 0;
+        padding: 15px;
+    }
+
+    .menu-icon {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 20px;
+        color: white;
+    }
+
+    #menu-toggle:checked + .menu-icon {
+        color: #3498db; /* Blue */
+    }
+
+    #menu-toggle:checked + .menu-icon + header nav ul {
+        display: flex;
+    }
+}

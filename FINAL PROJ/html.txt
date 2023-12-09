@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <title>Responsive Sections</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <header>
+        <div class="logo">
+            <h1><span>APP</span>STATION+</h1>
+        </div>
+        <nav class="menubar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#applications">Applications</a></li>
+                <li><a href="#contacts">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="home">
+        <h1 class="homename"><span>APP</span>STATION+</h1>
+    </section>
+
+    <section id="about" class="about">
+        <h1>About</h1>
+    </section>
+
+    <section id="applications" class="applications">
+        <h1>Applications</h1>
+    </section>
+
+    <section id="contacts" class="contacts">
+        <h1>Contacts</h1>
+    </section>
+
+    <section class="rights-reserved">
+        <h1>Rights Reserved</h1>
+    </section>
+</body>
+</html>

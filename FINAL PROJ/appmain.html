@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="icon" href="appicon.png" type="image/icon type">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <title>AppStation+</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <header>
+        <div class="logo">
+            <h1><span>APP</span>STATION+</h1>
+        </div>
+        <nav class="menubar">
+            <ul>
+                <li><a href="#home" class="ulhome">Home</a></li>
+                <li><a href="#about" class="ulabout">About</a></li>
+                <li><a href="#applications" class="ulapp">Applications</a></li>
+                <li><a href="#contacts" class="ulcon">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="home">
+        <div>
+          <h1 class="homename"><span>APP</span>STATION+</h1>
+        </div>
+        <div class="homeicons">
+           <div class="pic"><img src="searchicon.png" alt=""></div>
+
+           <div class="pic"><img src="selecticon.png" alt=""></div>
+
+           <div class="pic"><img src="starticon.png" alt=""></div>
+
+
+
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="info-box">
+            <div class="info-text">
+              <h1><span>APP</span>STATION+</h1>
+              <p>⭐ Browse up to <span class="spanlink">100+</span> applications for your own satisfaction.</p>
+              <p>⭐ Designed for people who's looking for instant games. </p>
+              <p>⭐ Stylized and optimized for user experience.</p>
+              <p>⭐ For ages <span class="spanlink">8-26 years old</span> and above.</p>
+              <a href="#applications" class="playnow-button">PLAY NOW</a>
+            </div>
+
+
+
+            <div class="info-image">
+            </div>
+
+
+        </div>
+    </section>
+
+
+    <section id="applications" class="applications">
+        <h1 class="app-text">TRY OUT SOME OF OUR <span>NEWLY UPDATED</span>  APPLICATIONS!</h1>
+        
+        <div class="card-container">
+          <div class="card">
+            <div class="card-image1">
+
+            </div>
+
+            <div class="card-link">
+              <a href="app1.html">PLAY NOW!</a>
+              
+            </div>
+            <div class="card-text">
+                <p>Wordle</p>
+            </div>
+
+          </div>
+          <div class="card">
+            <div class="card-image2">
+
+            </div>
+
+            <div class="card-link">
+              <a href="app2.html">PLAY NOW!</a>
+              
+            </div>
+            <div class="card-text">
+              <p>Tic-Tac-Toe</p>
+          </div>
+            
+          </div>
+          <div class="card">
+            <div class="card-image3">
+
+            </div>
+
+            <div class="card-link">
+              <a href="app3.html">PLAY NOW!</a>
+              
+            </div>
+            <div class="card-text">
+              <p>Flip & Match</p>
+          </div>
+          </div>
+          <div class="card">
+            <div class="card-image4">
+
+            </div>
+
+            <div class="card-link">
+              <a href="app4.html">PLAY NOW!</a>
+              
+            </div>
+            <div class="card-text">
+              <p>BMI Calcu</p>
+          </div>
+          </div>
+          <div class="card">
+            <div class="card-image5">
+
+            </div>
+
+            <div class="card-link">
+              <a href="app5.html">PLAY NOW!</a>
+              
+            </div>
+            <div class="card-text">
+              <p>Bomb Escape</p>
+          </div>
+          </div>
+        </div>
+
+    </section>
+
+    <section id="contacts" class="contacts">
+        <div class="con-text"><h1>Had fun? Please rate our services.</h1></div>
+        <div id="star-rating" class="stars">
+          <span data-value="1" onmouseover="handleHover(1)" onclick="handleClick(1)" onmouseout="handleMouseOut()">&#9733;</span>
+          <span data-value="2" onmouseover="handleHover(2)" onclick="handleClick(2)" onmouseout="handleMouseOut()">&#9733;</span>
+          <span data-value="3" onmouseover="handleHover(3)" onclick="handleClick(3)" onmouseout="handleMouseOut()">&#9733;</span>
+          <span data-value="4" onmouseover="handleHover(4)" onclick="handleClick(4)" onmouseout="handleMouseOut()">&#9733;</span>
+          <span data-value="5" onmouseover="handleHover(5)" onclick="handleClick(5)" onmouseout="handleMouseOut()">&#9733;</span>
+        </div>
+
+        <div class="con-info">
+          <div class="con-link">
+            <a href="gmail.com">✉appstation.plus@gmail.com</a>
+          </div>
+          
+
+          <div class="con-icon">
+          <a href="https://www.facebook.com/subtlesubway"><img src="fblogo.png" alt="Facebook" class="fblogo"></a>
+          <a href="https://www.facebook.com/subtlesubway"><img src="iglogo.png" alt="Instagram" class="iglogo"></a>
+          <a href="https://www.facebook.com/subtlesubway"><img src="ghlogo.png" alt="Github" class="ghlogo"></a>
+          </div>
+          
+        </div>
+    </section>
+
+    <section class="rights-reserved">
+        <div class="rr-text">
+          <h1><span>APP</span>STATION+</h1>
+            <p>© APPSTATION. All Rights Reserved.</p>
+            <p>Legal | Privacy Policy | Manage Consent | Personal Information</p>
+        </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector("header");  
+    
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  });
+     let rating = 0;
+
+  const stars = document.querySelectorAll('.stars span');
+
+  function handleClick(value) {
+    rating = value;
+
+    // Remove 'checked' class from all stars
+    stars.forEach((star) => {
+      star.classList.remove('checked');
+    });
+
+    // Add 'checked' class to stars up to the clicked one
+    for (let i = 0; i < value; i++) {
+      stars[i].classList.add('checked');
+    }
+  }
+
+  function handleHover(value) {
+    // Add 'hovered' class to stars being hovered and the stars before them
+    stars.forEach((star, index) => {
+      if (index + 1 <= value) {
+        star.classList.add('hovered');
+      } else {
+        star.classList.remove('hovered');
+      }
+    });
+  }
+
+  function handleMouseOut() {
+    // Remove 'hovered' class from all stars when the mouse leaves the rating area
+    stars.forEach((star) => {
+      star.classList.remove('hovered');
+    });
+  }
+
+    </script>
+</body>
+</html>
